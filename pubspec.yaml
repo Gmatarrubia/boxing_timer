@@ -1,5 +1,5 @@
-name: rpi_weather
-description: Weather and clock App for Raspberry PI.
+name: boxing_timer
+description: Boxing Timer App for Raspberry PI, desktops and SmartTVs.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -18,7 +18,6 @@ dependencies:
   virtual_keyboard_2: ^0.0.2
   shared_preferences: ^2.0.13
   provider: ^6.0.2
-  ntp: ^2.0.0
   intl: ^0.17.0
   http: ^0.13.4
 
@@ -35,10 +34,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/icono.png
     - images/fondo.jpg
-    - images/temperature.png
-    - images/humidity.png
   fonts:
   - family: nonito
     fonts:

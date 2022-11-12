@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rpi_weather/resources/ui_constants.dart';
+import 'package:boxing_timer/resources/ui_constants.dart';
 import 'package:provider/provider.dart';
-import 'package:rpi_weather/ui_elements/top_bar.dart';
-import 'package:rpi_weather/ui_elements/time_bar.dart';
-import 'package:rpi_weather/ui_elements/weather_bar.dart';
-import 'package:rpi_weather/ui_elements/keyboard.dart';
-import 'package:rpi_weather/providers/system_provider.dart';
+import 'package:boxing_timer/ui_elements/keyboard.dart';
+import 'package:boxing_timer/providers/system_provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -33,24 +30,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
-                      child: TopBar(
-                        controllerText: _controllerText,
-                        textFocus: _locationFocus,
-                      ),
-                    ),
-                    const Flexible(
-                        flex: 1,
-                        fit: FlexFit.tight,
-                        child: TimeBar()
-                    ),
-                    const Flexible(
-                      flex: 2,
-                      fit: FlexFit.tight,
-                      child: WeatherBar(),
-                    ),
+                    // Add here new widgets
                   ],
                 ),
               ),
@@ -70,5 +50,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-

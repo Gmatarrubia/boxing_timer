@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:virtual_keyboard_2/virtual_keyboard_2.dart';
-import 'package:rpi_weather/providers/system_provider.dart';
+import 'package:boxing_timer/providers/system_provider.dart';
 
 class Keyboard extends StatefulWidget {
   final TextEditingController controllerText;

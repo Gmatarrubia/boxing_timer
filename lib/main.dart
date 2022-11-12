@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rpi_weather/screens/main_screen.dart';
-
+import 'package:boxing_timer/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rpi Weather',
+      title: 'Boxing Timer',
       theme: ThemeData(
         brightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
