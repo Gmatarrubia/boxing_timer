@@ -1,0 +1,54 @@
+---
+- name: Ansible playbook for installing the flutter
+  hosts: localhost
+  vars:
+    is_WSL: "{{ ansible_kernel.find('WSL') }}"
+  tasks:
+    - name: Check flutter resources
+      ansible.builtin.stat:
+        path: /opt/flutter/bin/flutter
+      register: p
+    - name: Get Flutter sources
+      when: not p.stat.exists
+      ansible.builtin.git:
+        repo: https://github.com/flutter/flutter.git
+        dest: /opt/flutter/
+        version: 2.10.5
+
+    - name: Download flutter precache
+      command: /opt/flutter/bin/flutter precache
+    - name: Disable flutter analytics
+      command: /opt/flutter/bin/flutter config --no-analytics
+    - name: Download flutter precache
+      command: /opt/flutter/bin/dart --disable-analytics
+    - name: Enable Flutter for linux
+      command: /opt/flutter/bin/flutter config --enable-linux-desktop
+
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ is_WSL }}"
+
+    - name: Check vnc folder
+      ansible.builtin.stat:
+        path: ~/.vnc/
+      register: vnc
+    - name: Create the folder if not exists
+      when: not vnc.stat.exists
+      ansible.builtin.file:
+        path: ~/.vnc/
+        state: directory
+        mode: 0777
+
+    - name: Set vncserver config
+      when: is_WSL != "-1"
+      ansible.builtin.copy:
+        dest: ~/.vnc/tightvncserver.conf
+        content: |
+          geometry = "800x480";
+          depth = 24;
+          SecurityTypes = "None";
+          localhost = "yes";
+
+    - name: Enable and star vncserver in case of WSL
+      when: is_WSL != "-1"
+      command: tigervncserver -useold -noxstartup -SecurityTypes None -localhost yes :1

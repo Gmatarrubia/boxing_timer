@@ -1,0 +1,40 @@
+---
+- name: Ansible playbook for installing the flutter dev env
+  hosts: localhost
+  user: root
+  vars:
+      is_WSL: "{{ ansible_kernel.find('WSL') }}"
+
+  tasks:
+    - name: Run "apt-get update"
+      apt:
+        update_cache: yes
+
+    - name: install python
+      command: apt install -y python3 python3-apt
+
+    - name: install flutter dependencies
+      command: apt install -y curl git zip unzip xz-utils clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev tigervnc-standalone-server tigervnc-xorg-extension tigervnc-viewer
+
+    - name: Check flutter resources
+      ansible.builtin.stat:
+        path: /opt/flutter/
+      register: p
+    - name: Set right permissions
+      when: not p.stat.exists
+      ansible.builtin.file:
+        path: /opt/flutter
+        state: directory
+        mode: 0777
+
+
+    - name: Register a variable, ignore errors and continue
+      command: grep -c flutter /etc/bash.bashrc
+      register: result
+      ignore_errors: true
+    - name: Add flutter dir to path 2/2
+      when: result.stdout == "0"
+      lineinfile:
+        dest: /etc/bash.bashrc
+        line: export PATH=$PATH:/opt/flutter/bin
+        owner: root
